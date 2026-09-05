@@ -1,0 +1,12 @@
+const express = require("express")
+require("./config/db")
+const cors = require("cors")
+const router =require("./router/UserRouter")
+const routerProfile=require("./router/filterUser")
+let app = express()
+app.use(express.json())
+app.use(cors())
+app.use("/upload", express.static("upload"));
+app.use(router)
+app.use(routerProfile)
+app.listen(3300,()=> console.log("server is runing"))
