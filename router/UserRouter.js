@@ -1,10 +1,11 @@
 const express = require("express")
 const imgUpload =require("../middleware/uploadMiddleware")
 const {createUser,userLogin,userProfile,getUserProfile,getUserProfileDetail}=require("../controller/UserController")
+const auth = require("../middleware/auth")
 let router = express.Router()
 router.post("/createUser",createUser)
 router.post("/userLogin",userLogin)
-router.put("/userProfile/:id",imgUpload.single("image"),userProfile)
+router.put("/userProfile/:id",auth,imgUpload.single("image"),userProfile)
 router.get("/getUser",getUserProfile)
 router.get("/getUserBy/:id",getUserProfileDetail)
 module.exports = router

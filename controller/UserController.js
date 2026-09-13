@@ -11,16 +11,17 @@ const createUser = async(req,res)=>{
 const userLogin = async(req,res) =>{
     const {email,password} = req.body
        const findUser = await UserModel.findOne({email})
+       role = findUser.role
       const comp = await bcrypt.compare(password,findUser.password)
       if(!comp){
          res.json("User Not Found")
       } else{
         const token =   jwt.sign({
             userId : findUser._id,
-            role : findUser.role
+            role : role
            
            },"hello")
-           res.json({token : token})
+           res.json({token : token,role : role})
            console.log(role)
       }
 }
@@ -62,7 +63,10 @@ const userProfile = async (req, res) => {
 
   res.json(createUserData);
 };
+
 const getUserProfile = async(req,res)=>{
+//  const userId =  req.user.userId
+ 
    const userProfileData = await  UserModel.find()
    res.json(userProfileData)
 }
