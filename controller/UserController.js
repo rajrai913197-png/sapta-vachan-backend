@@ -65,9 +65,7 @@ const userProfile = async (req, res) => {
 };
 
 const getUserProfile = async(req,res)=>{
-//  const userId =  req.user.userId
- 
-   const userProfileData = await  UserModel.find()
+   const userProfileData = await  UserModel.find( )
    res.json(userProfileData)
 }
 const getUserProfileDetail =async (req,res)=>{
