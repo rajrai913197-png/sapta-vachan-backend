@@ -24,4 +24,8 @@ const community = async (req,res)=>{
      const communityData =  await  UserModel.distinct("religion")
      res.json(communityData)
 }
-module.exports = {createProfile, filterUser,ageCat,getCity,getGender,community}
+const getProfile = async(req,res)=>{
+       const getProfileData =  await   UserModel.findById(req.params.id)
+       res.json(getProfileData)
+}
+module.exports = {createProfile, filterUser,ageCat,getCity,getGender,community,getProfile}

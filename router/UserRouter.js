@@ -1,6 +1,6 @@
 const express = require("express")
 const imgUpload =require("../middleware/uploadMiddleware")
-const {createUser,userLogin,userProfile,getUserProfile,getUserProfileDetail}=require("../controller/UserController")
+const {createUser,userLogin,userProfile,getUserProfile,getUserProfileDetail,}=require("../controller/UserController")
 const auth = require("../middleware/auth")
 let router = express.Router()
 router.post("/createUser",createUser)
