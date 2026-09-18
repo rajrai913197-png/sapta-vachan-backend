@@ -2,7 +2,8 @@ const express = require("express");
 require("dotenv").config();
 const http = require("http");
 const cors = require("cors");
-const port = process.env.PORT
+
+const port = process.env.PORT;
 
 require("./config/db");
 
@@ -18,31 +19,52 @@ const server = http.createServer(app);
 
 const { Server } = require("socket.io");
 
+
+// =====================================================
+// CORS
+// =====================================================
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://humsafar-rosy.vercel.app"
+];
+
+
+// =====================================================
+// SOCKET.IO
+// =====================================================
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
 
-// ================= CORS =================
+// =====================================================
+// EXPRESS CORS
+// =====================================================
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
 
 
-// ================= MIDDLEWARE =================
+// =====================================================
+// MIDDLEWARE
+// =====================================================
 
 app.use(express.json());
 
 
-// ================= UPLOAD =================
+// =====================================================
+// UPLOAD
+// =====================================================
 
 app.use(
   "/upload",
@@ -50,7 +72,9 @@ app.use(
 );
 
 
-// ================= ONLINE USERS =================
+// =====================================================
+// ONLINE USERS
+// =====================================================
 
 const onlineUsers = new Set();
 
@@ -98,6 +122,7 @@ io.on("connection", (socket) => {
       "SOCKET ROOMS:",
       [...socket.rooms]
     );
+
 
     // Send online users to everyone
 
@@ -222,7 +247,7 @@ io.on("connection", (socket) => {
   socket.on("call-accepted", (data) => {
 
     console.log(
-      " CALL ACCEPTED:",
+      "📞 CALL ACCEPTED:",
       data
     );
 
@@ -261,6 +286,7 @@ io.on("connection", (socket) => {
   socket.on("call-rejected", (data) => {
 
     console.log(
+      "CALL REJECTED:",
       data
     );
 
