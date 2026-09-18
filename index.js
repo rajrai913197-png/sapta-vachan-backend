@@ -14,20 +14,18 @@ const interestrouter = require("./router/intrestRouter");
 const routerMsg = require("./router/messageRouter");
 
 const app = express();
-
 const server = http.createServer(app);
 
 const { Server } = require("socket.io");
 
-
-
+// =====================================================
+// ALLOWED ORIGINS
+// =====================================================
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "sapta-vachan.netlify.app"
-
+  "https://sapta-vachan.netlify.app"
 ];
-
 
 // =====================================================
 // SOCKET.IO
@@ -41,7 +39,6 @@ const io = new Server(server, {
   },
 });
 
-
 // =====================================================
 // EXPRESS CORS
 // =====================================================
@@ -53,13 +50,11 @@ app.use(
   })
 );
 
-
 // =====================================================
 // MIDDLEWARE
 // =====================================================
 
 app.use(express.json());
-
 
 // =====================================================
 // UPLOAD
@@ -70,13 +65,11 @@ app.use(
   express.static("upload")
 );
 
-
 // =====================================================
 // ONLINE USERS
 // =====================================================
 
 const onlineUsers = new Set();
-
 
 // =====================================================
 // SOCKET.IO
@@ -88,7 +81,6 @@ io.on("connection", (socket) => {
     "SOCKET CONNECTED:",
     socket.id
   );
-
 
   // ===================================================
   // JOIN USER
@@ -122,16 +114,11 @@ io.on("connection", (socket) => {
       [...socket.rooms]
     );
 
-
-    // Send online users to everyone
-
     io.emit(
       "onlineUsers",
       [...onlineUsers]
     );
-
   });
-
 
   // ===================================================
   // CHAT MESSAGE
@@ -176,9 +163,7 @@ io.on("connection", (socket) => {
       "receiveMessage",
       data
     );
-
   });
-
 
   // ===================================================
   // CALL USER
@@ -235,9 +220,7 @@ io.on("connection", (socket) => {
           data.offer,
       }
     );
-
   });
-
 
   // ===================================================
   // CALL ACCEPTED
@@ -274,9 +257,7 @@ io.on("connection", (socket) => {
           data.answer,
       }
     );
-
   });
-
 
   // ===================================================
   // CALL REJECTED
@@ -304,9 +285,7 @@ io.on("connection", (socket) => {
     io.to(callerId).emit(
       "call-rejected"
     );
-
   });
-
 
   // ===================================================
   // ICE CANDIDATE
@@ -336,9 +315,7 @@ io.on("connection", (socket) => {
           socket.userId,
       }
     );
-
   });
-
 
   // ===================================================
   // CALL ENDED
@@ -366,9 +343,7 @@ io.on("connection", (socket) => {
     io.to(receiverId).emit(
       "call-ended"
     );
-
   });
-
 
   // ===================================================
   // DISCONNECT
@@ -386,18 +361,15 @@ io.on("connection", (socket) => {
         "onlineUsers",
         [...onlineUsers]
       );
-
     }
 
     console.log(
       "SOCKET DISCONNECTED:",
       socket.id
     );
-
   });
 
 });
-
 
 // =====================================================
 // EXPRESS ROUTES
@@ -412,7 +384,6 @@ app.use(adminrouter);
 app.use(interestrouter);
 
 app.use(routerMsg);
-
 
 // =====================================================
 // SERVER
