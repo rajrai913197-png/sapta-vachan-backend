@@ -1,7 +1,9 @@
 
 const UserModel = require("../model/UserModel")
+
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
+const key = process.env.JWT_SECRET
 const createUser = async(req,res)=>{
     const {name,email,password} = req.body
     const hashpass = await bcrypt.hash(password,10)
@@ -20,7 +22,7 @@ const userLogin = async(req,res) =>{
             userId : findUser._id,
             role : role
            
-           },"hello")
+           },key)
            res.json({token : token,role : role})
            console.log(role)
       }

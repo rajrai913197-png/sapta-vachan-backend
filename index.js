@@ -1,6 +1,8 @@
 const express = require("express");
+require("dotenv").config();
 const http = require("http");
 const cors = require("cors");
+const port = process.env.PORT
 
 require("./config/db");
 
@@ -220,7 +222,7 @@ io.on("connection", (socket) => {
   socket.on("call-accepted", (data) => {
 
     console.log(
-      "✅ CALL ACCEPTED:",
+      " CALL ACCEPTED:",
       data
     );
 
@@ -259,7 +261,6 @@ io.on("connection", (socket) => {
   socket.on("call-rejected", (data) => {
 
     console.log(
-      "❌ CALL REJECTED:",
       data
     );
 
@@ -287,10 +288,6 @@ io.on("connection", (socket) => {
   // ===================================================
 
   socket.on("ice-candidate", (data) => {
-
-    console.log(
-      "🧊 ICE CANDIDATE"
-    );
 
     if (!data) {
       return;
@@ -396,10 +393,10 @@ app.use(routerMsg);
 // SERVER
 // =====================================================
 
-server.listen(3300, () => {
+server.listen(port, () => {
 
   console.log(
-    "SERVER RUNNING ON PORT 3300"
+    `SERVER RUNNING ON PORT ${port}`
   );
 
 });
