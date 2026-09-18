@@ -20,13 +20,12 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 
 
-// =====================================================
-// CORS
-// =====================================================
+
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://humsafar-rosy.vercel.app"
+  "sapta-vachan.netlify.app"
+
 ];
 
 
