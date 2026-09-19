@@ -24,7 +24,7 @@ const { Server } = require("socket.io");
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://sapta-vachan.netlify.app"
+  "https://saptavachan.vercel.app",
 ];
 
 // =====================================================
