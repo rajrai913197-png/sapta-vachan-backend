@@ -1,14 +1,17 @@
-const multer = require("multer")
-const st = multer.diskStorage({
-     destination:(req,file,cb)=>{
-        cb(null,'upload/')
-    },
-    filename:(req,file,cb)=>{
-        cb(null,file.originalname)
-    }
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
-})
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "sapta-vachan",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+  },
+});
+
 const imgUpload = multer({
-    storage : st
-})
-module.exports = imgUpload
+  storage: storage,
+});
+
+module.exports = imgUpload;

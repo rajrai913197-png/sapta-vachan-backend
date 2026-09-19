@@ -48,7 +48,7 @@ const userProfile = async (req, res) => {
 
       bio: req.body.bio,
 
-      image: req.file.filename,
+      image: req.file.path,
 
       fatherName: req.body.fatherName,
 
@@ -74,4 +74,4 @@ const getUserProfileDetail =async (req,res)=>{
    const  userProfiledetaildata =  await UserModel.findById(req.params.id)
    res.json(userProfiledetaildata)
 }
-module.exports = {createUser,userLogin,userProfile,getUserProfile,getUserProfileDetail}
+module.exports = {createUser,userLogin,userProfile,getUserProfile,getUserProfileDetail} 
